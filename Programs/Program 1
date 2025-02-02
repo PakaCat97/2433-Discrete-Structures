@@ -3,13 +3,14 @@
 *  Author:           Carlos Munoz
 * 
 *  Email:            cmunoz9755@gmail.com
-*  Label:            (program's label from assignment list)
-*  Title:            (short title from assignment, if any)
+*  Label:            Program 1
+*  Title:            Evaluating Bitwise Opps
 *  Course:           2433-Discrete-Structures
 *  Semester:         Spring 2025
 *  Instructor:       Dr. Catherine Stringfellow
 *  Description:
-*        describe program here thoroughly
+*        This program ustilizes stacks to evaluate fully parenthisized boolian
+* expressions.
 *
 *  Usage:
 *        how to use the program if necessary
@@ -18,11 +19,27 @@
 *****************************************************************************/
 
 #include <iostream>
+#include <fstream>
 
 using namespace std;
+
+void openFiles (ifstream& infile, ofstream& outfile);
 
 int main()
 {
 
 return 0;
 };
+
+
+void openFiles (ifstream& infile, ofstream& outfile)
+{
+char inFileName[40];
+char outFileName[40];
+cout<<"Enter the input file name: ";
+cin>>inFileName;
+infile.open(inFileName); //open input file
+cout<<"Enter the output file name: ";
+cin>> outFileName;
+outfile.open(outFileName);//open out putfile
+}
