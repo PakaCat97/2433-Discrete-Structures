@@ -9,17 +9,31 @@ using namespace std;
 struct Node
 {
     char opp; // operator or operand
-    Node * pre; // Previous pointer to keep track of nodes below
+    Node * next; // Previous pointer to keep track of nodes below
 
     Node(char o)
     {
         opp = o;
-        pre = NULL;
+        next = NULL;
     }
 };
 
-class List
+class Stack
 {
-    
+    private:
+    Node * top;
+    public:
+
+    Stack(); //Defualt constructor
+
+    // Function Name: push
+    // Parameters: char opp an operator or operand
+    // Purpose: stacks a node containing opp on the top returns nothing
+    void push(char opp);
+
+    // Function Name: pop
+    // Parameters: none
+    // Purpose: take the data from the top node to be used for an opperation
+    char pop();
 
 };

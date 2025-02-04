@@ -23,6 +23,10 @@
 
 using namespace std;
 
+// Function Name: openFiles
+// Parameters: infile and outfile
+// Purpose: Decalres an ifstream and ofstream
+// variable and opens them
 void openFiles (ifstream& infile, ofstream& outfile);
 
 int main()
