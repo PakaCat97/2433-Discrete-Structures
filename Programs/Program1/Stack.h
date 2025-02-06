@@ -36,4 +36,7 @@ class Stack
     // Purpose: take the data from the top node to be used for an opperation
     char pop();
 
+    // Print method to see my stack
+    void print();
+
 };

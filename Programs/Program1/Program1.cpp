@@ -20,6 +20,7 @@
 
 #include <iostream>
 #include <fstream>
+#include "Stack.h"
 
 using namespace std;
 
