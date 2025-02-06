@@ -32,6 +32,19 @@ void openFiles (ifstream& infile, ofstream& outfile);
 
 int main()
 {
+    Stack s1;
+
+    s1.push('A');
+    s1.push('B');
+
+    s1.push('C');
+
+    s1.push('D');
+
+    s1.push('E');
+
+    s1.print();
+
 
 return 0;
 };
