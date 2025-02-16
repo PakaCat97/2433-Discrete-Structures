@@ -35,17 +35,17 @@ int main()
 
     ifstream in;
     ofstream out;
-  //  Stack s1;
-   // char ca;
+   Stack s1;
+   char ca;
 
-    // s1.push('A');
-    // s1.push('B');
-    // s1.push('C');
-    // s1.push('D');
-    // s1.push('E');
-    // s1.print();
-    // ca = s1.pop();
-    // cout << "Pop: " << ca;
+    s1.push('A');
+    s1.push('B');
+    s1.push('C');
+    s1.push('D');
+    s1.push('E');
+    s1.print();
+    ca = s1.pop();
+    cout << "Pop: " << ca;
 
 
 return 0;
