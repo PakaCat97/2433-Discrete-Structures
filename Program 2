@@ -1,1 +1,242 @@
+/*****************************************************************************
+*
+*  Author:           Carlos Munoz
+*
+*  Email:            cmunoz9755@gmail.com
+* 
+*  Label:            Program 2
+* 
+*  Title:            Functions
+* 
+*  Course:           2433-Discrete-Structures
+* 
+*  Semester:         Spring 2025
+* 
+*  Instructor:       Dr. Catherine Stringfellow
+* 
+*  Description:
+*        This program evaluates functions and determines if they are inverse
+*  or not.
+*****************************************************************************/
 
+#include <iostream>
+#include <fstream>
+#include <iomanip>
+#include "Stack.h"
+
+using namespace std;
+
+// Name: openFiles
+// Parameters: ifstream& infile, ofstream& outfile
+// Description: Creates file variables and promts user for thier name
+// Returns: Nothing
+void openFiles(ifstream& infile, ofstream& outfile);
+
+// Name: printHeader
+// Parameters: outfile
+// Description: Will set up the output file 
+// Returns: Nothing
+void printHeader(string f, string g, ofstream& outfile);
+
+// Name: fof
+// Parameters: double x
+// Description: Will pass in a number and return a result
+// Returns: double result
+double fof(double x);
+
+// Name: gof
+// Parameters: double x
+// Description: Will pass in a number and return a result
+// Returns: double result
+double gof(double x);
+
+// Name: fofgx
+// Parameters: double x
+// Description: Will work out the function f(g(x))
+// Returns: double result
+double fofgx(double x);
+
+// Name: goffx
+// Parameters: double x
+// Description: Will work out the function g(f(x))
+// Returns: double result
+double goffx(double x);
+
+// Name: printResults
+// Parameters: double x1, double x2, double x3, double x4, double x5
+// Description: Will print the results of the functions
+// Returns: nothing
+void printResults(double x1, double fresult, double gresult, 
+					double fofgresult,double goffresult, ofstream& outfile);
+
+// Name: isInverse
+// Parameters: two doubles, the results of the goffx and fofgx functions
+// Description: Will print a message if the functions are inverses of eachother
+// Returns: bool
+bool isInverse(double fgx, double gfx);
+
+// Name: isInverse
+// Parameters: a stack of boolian values and a counter containing the amount
+// of boolian values in the stack.
+// Description: Will print a message stating if the functions are inverse or !
+// Returns: int like in main.
+int printInverse(Stack inv, int counter, ofstream& outfile, string f, string g);
+
+
+int main()
+{
+	const string fstring = "f(x) = 3x + 4";
+	const string gstring = "g(x) = (x-4) / 3";
+	ifstream infile;
+	ofstream outfile;
+	bool inverse;
+	Stack bools;
+	int counter = 0;
+
+	// This was test values assigned
+	double result;
+	double result2;
+	double result3;
+	double result4;
+	int x = 1;
+	// Comment or delete these later
+
+	openFiles(infile, outfile); // Opens files
+
+	printHeader(fstring, gstring, outfile);
+
+	while (!infile.eof())
+	{
+		infile >> x; // Assign x the value in the file
+
+		result = fof(x); 
+
+		result2 = gof(x);
+
+		result3 = fofgx(x);  // Assigning results
+
+		result4 = goffx(x);
+
+		printResults(x, result, result2, result3, result4, outfile);
+
+		inverse = isInverse(result3, result4); // Assigns truth values to bool
+		                                       
+		bools.push(inverse); // Pushes bool value on to stack
+
+		counter++; // Increments while the file is not empty
+
+	};
+
+	// Determines if the functions are inverses and prints out message
+	printInverse(bools, counter, outfile, fstring, gstring); 
+	                          
+	return 0;
+};
+
+
+void openFiles(ifstream& infile, ofstream& outfile)
+{
+	char inFileName[40];
+	char outFileName[40];
+	cout << "Enter the input file name: ";
+	cin >> inFileName;
+	infile.open(inFileName); //open input file
+	cout << "Enter the output file name: ";
+	cin >> outFileName;
+	outfile.open(outFileName);//open out putfile
+}
+
+void printHeader(string f, string g, ofstream& outfile)
+{
+	outfile << "Carlos Munoz" << endl;
+	outfile << "Program 2 Inverse Functions" << endl;
+	outfile << left << setw(5) << "X" << left << setw(15) << f << left;
+	outfile << setw(15) << g << left << setw(15);
+	outfile << "f(g(x))" << left << setw(5) << "g(f(x))" << endl;
+	outfile << string(77, '-') << endl;
+}
+
+double fof(double x)
+{
+	double result;
+
+	result = (3 * x) + 4;
+
+	return result;
+}
+
+double gof(double x)
+{
+	double result;
+	
+	result = (x - 4) / 3;
+
+	return result;
+}
+
+void printResults(double x1, double fresult, double gresult,
+					double fofgresult, double goffresult, ofstream& outfile)
+{
+	outfile << left << setw(5) << x1 << right << setw(8) << fresult;
+	outfile << right << setw(19) << gresult << right << setw(10);
+	outfile << fofgresult << right << setw(15) << goffresult << endl;
+}
+
+double fofgx(double x)
+{
+	double result;
+
+	double num;
+
+	num = gof(x);
+
+	result = fof(num);
+
+	return result;
+}
+
+double goffx(double x)
+{
+	double result;
+
+	double num;
+
+	num = fof(x);
+
+	result = gof(num);
+
+	return result;
+}
+
+bool isInverse(double fgx, double gfx)
+{
+	if (fgx == gfx)
+	{
+		return true;
+	}
+	else
+		return false;
+}
+
+int printInverse(Stack inv, int counter, ofstream& outfile, string f, string g)
+{
+	bool b; // Value to be chacked
+
+	for (int i = 0; i < counter; i++)
+	{
+		b = inv.pop();
+
+		if (b == false) // If not a function
+		{
+			outfile << f << " and " << g << " Are NOT inverse functions!";
+			return 0;
+		}
+		else // else here to keep it going does nothing
+		{
+
+		}
+	}
+	outfile << f << " and " << g << " ARE inverse functions!";
+
+	return 0;
+}
